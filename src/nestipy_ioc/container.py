@@ -68,8 +68,13 @@ class NestipyContainer:
         if metadata is not None:
             global_providers = cls.get_global_providers()
             providers, import_providers = metadata.get_service_providers()
-            return uniq([m.token if isinstance(m, ModuleProviderDict)
-                         else m for m in uniq(providers + global_providers + import_providers)])
+            uniq_providers = []
+            for m in uniq(providers + global_providers + import_providers):
+                if isinstance(m, ModuleProviderDict):
+                    uniq_providers.append(m.token)
+                else:
+                    uniq_providers.append(m)
+            return uniq(uniq_providers)
         # raise ValueError(f"Dependency Metadata not found  for {service.__name__} service ")
         return []
 
