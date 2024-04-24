@@ -5,10 +5,12 @@ from nestipy_metadata import Reflect, RouteKey, ClassMetadata
 
 from .container import NestipyContainer
 
+HTTPMethod = Literal['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS', 'ALL', 'ANY']
+
 
 @dataclass
 class MiddlewareRouteConfig:
-    method: list[Literal['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS', 'ALL', 'ANY']] = field(
+    method: list[HTTPMethod] = field(
         default_factory=lambda: ['ALL'])
     url: str = field(default='/')
 
