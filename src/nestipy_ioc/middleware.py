@@ -1,6 +1,5 @@
 from dataclasses import dataclass, field
-from http import HTTPMethod
-from typing import Union, Type, Callable
+from typing import Union, Type, Callable, Literal
 
 from nestipy_metadata import Reflect, RouteKey, ClassMetadata
 
@@ -9,7 +8,8 @@ from .container import NestipyContainer
 
 @dataclass
 class MiddlewareRouteConfig:
-    method: list[HTTPMethod] = field(default_factory=lambda: ['ALL'])
+    method: list[Literal['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS', 'ALL', 'ANY']] = field(
+        default_factory=lambda: ['ALL'])
     url: str = field(default='/')
 
 
