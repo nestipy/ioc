@@ -198,7 +198,7 @@ class NestipyContainer:
         for name, param in params.items():
             if name != 'self' and param.annotation is not inspect.Parameter.empty:
                 annotation, dep_key = self.helper.get_type_from_annotation(param.annotation)
-                if dep_key.metadata is not CtxDepKey.Service:
+                if dep_key.metadata in CtxDepKey.to_list() and dep_key.metadata is not CtxDepKey.Service:
                     dependency = self._resolve_context_service(name, dep_key.metadata, annotation)
                     args[name] = dependency
                 elif annotation in search_scope:
